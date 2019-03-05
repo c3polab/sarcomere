@@ -1,4 +1,4 @@
-# homogeneousClassic.py : A muscle model composed of homogeneous sarcomeres.
+# muscleClassic.py : A muscle model composed of homogeneous sarcomeres.
 # The "classic" sliding filament template for isometric contractions is used
 # to model the force of a muscle as it contracts at a range of different lengths. 
 # Myofilament geometries are constant (homogeneous) across all sarcomeres in the 
@@ -6,7 +6,7 @@
 #
 #
 # To model a single muscle's isometric length-tension curve, run with:  
-# >> python3 homogeneousClassic.py
+# >> python3 muscleClassic.py
 # Optional command line argument [-flag <value>] pairs:
 #	-m <myosin (thick) filament length, in micrometers>
 #	-a <actin (thin) filament length, in micrometers>
@@ -19,7 +19,7 @@
 #
 # To generate response surfaces illustrating performance metrics (peak force,
 # velocity, energy density) as a function of myofilament lengths, run with:
-# >> python3 homogeneousClassic.py response
+# >> python3 muscleClassic.py response
 #
 #
 # Caitrin Eaton
@@ -453,7 +453,7 @@ def main( argv ):
 	# Construct new SlidingFilament model with default characteristics
 	muscle = Homogeneous()
 	
-	print("\nUSAGE: python3 homogeneousClassic.py [optional: -flag <value> pairs]\n")
+	print("\nUSAGE: python3 muscleClassic.py [optional: -flag <value> pairs]\n")
 	print("FLAGS:")
 	print("\t-m <thick filament length, um>, default: {} um".format(Homogeneous.lthick))
 	print("\t-a <thin filament length, um>, default: {} um".format(Homogeneous.lthin))
