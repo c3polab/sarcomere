@@ -1,11 +1,11 @@
-# SFAnchored.py : A sliding filament model of a single sarcomere's isometric
+# sarcomereAnchored.py : A sliding filament model of a single sarcomere's isometric
 # length-tension relationship, anchored with empirical evidence by 
 # learning the slopes of each segment from published isometric 
 # length-tension curves. Visualizes the length-tension curve with 
 # matplotlib.
 #
-# To generate response surfaces, run: 			>> python3 SFAnchored.py response
-# To simulate a single sarcomere model, run: 	>> python3 SFAnchored.py 
+# To generate response surfaces, run: 		>> python3 sarcomereAnchored.py response
+# To simulate a single sarcomere model, run: 	>> python3 sarcomereAnchored.py 
 #
 # Caitrin Eaton
 # 22 October 2018
@@ -20,10 +20,10 @@ class SlidingFilament:
 	
 	# Default sarcomere model characteristics drawn from Heejoon's 
 	# median values for vertebrates.
-	lthick = 1.6	# thick filament length, um
+	lthick = 1.6		# thick filament length, um
 	lthin = 2.2		# thin filament length, um
 	lz = 0.08		# z disc thickness, um
-	lbare = 0.155	# bare zone thickness, um
+	lbare = 0.155		# bare zone thickness, um
 	t0 = None		# peak isometric tension, N/cm**2
 	slope = [ 53.544309, 10.198916, 0, 0, -18.21235]	# slope of the isometric length-tension curve's segments, Ncm**-2/um_overlap
 	csv = None		# empirical data file
