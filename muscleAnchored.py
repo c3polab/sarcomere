@@ -1,4 +1,4 @@
-# homogeneousAnchored.py : A muscle model composed of homogeneous sarcomeres.
+# muscleAnchored.py : A muscle model composed of homogeneous sarcomeres.
 # The sliding filament template for isometric contractions is "anchored" here with
 # ascending limb slopes observed in physiological studies of vertebrate muscle.
 # The force of a contracting muscle is modeled at a range of different lengths. 
@@ -7,7 +7,7 @@
 #
 #
 # To model a single muscle's isometric length-tension curve, run with:  
-# >> python3 homogeneousAnchored.py
+# >> python3 muscleAnchored.py
 # Optional command line argument [-flag <value>] pairs:
 #	-m <myosin (thick) filament length, in micrometers>
 #	-a <actin (thin) filament length, in micrometers>
@@ -20,7 +20,7 @@
 #
 # To generate response surfaces illustrating performance metrics (peak force,
 # velocity, energy density) as a function of myofilament lengths, run with:
-# >> python3 homogeneousAnchored.py response
+# >> python3 muscleAnchored.py response
 #
 #
 # Caitrin Eaton
@@ -500,13 +500,12 @@ def main( argv ):
 	# Construct new SlidingFilament model with default characteristics
 	muscle = Homogeneous()
 	
-	print("\nUSAGE: python3 slip.py [optional: -flag <value> pairs]\n")
+	print("\nUSAGE: python3 muscleAnchored.py [optional: -flag <value> pairs]\n")
 	print("FLAGS:")
 	print("\t-m <thick filament length, um>, default: {} um".format(Homogeneous.lthick))
 	print("\t-a <thin filament length, um>, default: {} um".format(Homogeneous.lthin))
 	print("\t-z <z disc width, um>, default: {} um".format(Homogeneous.lz))
 	print("\t-b <bare zone width, um>, default: {} um".format(Homogeneous.lbare))
-	#print("\t-t <peak isometric tension, N/cm**2>, default: {} N/cm**2".format(Homogeneous.t0))
 	print("\t-r <radius of muscle cylinder>, default: {} cm".format(Homogeneous.rCyl))
 	print("\t-l <length of muscle cylinder>, default: {} cm".format(Homogeneous.lCyl))
 	print("\t-f <empirical data file, *.csv>, default: {}".format(Homogeneous.csv))
