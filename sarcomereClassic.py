@@ -1,9 +1,9 @@
-# SFClassic.py : A sliding filament model of a single sarcomere's isometric
+# sarcomereClassic.py : A sliding filament model of a single sarcomere's isometric
 # length-tension relationship. Visualizes the length-tension curve with 
 # matplotlib.
 #
-# To generate response surfaces, run: 	python3 SFClassic.py response
-# To simulate a single sarcomere model: python3 SFClassic.py 
+# To generate response surfaces, run: 	python3 sarcomereClassic.py response
+# To simulate a single sarcomere model: python3 sarcomereClassic.py 
 #
 # Caitrin Eaton
 # 13 July 2018
@@ -18,12 +18,12 @@ class SlidingFilament:
 	
 	# Default sarcomere model characteristics drawn from Heejoon's 
 	# median values for vertebrates.
-	lthick = 1.6		# thick filament length, um
+	lthick = 1.6			# thick filament length, um
 	lthin = 2.2			# thin filament length, um
 	lz = 0.08			# z disc thickness, um
-	lbare = 0.155		# bare zone thickness, um
+	lbare = 0.155			# bare zone thickness, um
 	t0 = None			# peak isometric tension, N/cm**2
-	slope = -17.1922	# slope of the isometric length-tension curve's segments, Ncm**-2/um_overlap
+	slope = -17.1922		# slope of the isometric length-tension curve's segments, Ncm**-2/um_overlap
 	csv = None			# empirical data file
 		
 	def __init__( self, lthick=None, lthin=None, lz=None, lbare=None, slope=None, t0=None, csv=None):
@@ -441,7 +441,7 @@ def main( argv ):
 	csv		= SlidingFilament.csv
 	
 	# I can never remember what all these are, so print them every time
-	print("\nUSAGE: python3 slip.py [optional: -flag <value> pairs]\n")
+	print("\nUSAGE: python3 sarcomereClassic.py [optional: -flag <value> pairs]\n")
 	print("FLAGS:")
 	print("\t-m <thick filament length, um>, default: {} um".format(SlidingFilament.lthick))
 	print("\t-a <thin filament length, um>, default: {} um".format(SlidingFilament.lthin))
