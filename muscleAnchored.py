@@ -33,7 +33,7 @@ import sys
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
-import SFAnchored as anchored
+import sarcomereAnchored as anchored
 
 
 class Homogeneous:
@@ -267,7 +267,7 @@ def superimposeAnimalData( thick, thin, slope, intercept, fig=None, quadratic=Fa
 	'''Superimpose animal data on the response surface and measure
 	root mean squared error and R**2 relative the identified trend.'''	
 		
-	data = np.genfromtxt("animal_data.csv", delimiter=',', autostrip=True, skip_header=1)
+	data = np.genfromtxt("geometries.csv", delimiter=',', autostrip=True, skip_header=1)
 	
 	# Keep only data that fits within in the bounds of simulated sarcomere dimensions
 	data = data[data[:,0] <= max(thick)]
@@ -368,8 +368,8 @@ def responseSurfaces():
 	
 	# Thick and thin filament lengths to simulate, in um
 	# Cross-phyla range
-	thick = np.linspace(0.1, 20.1, num=201)
-	thin = np.linspace(0.1, 20.1, num=201)
+	thick = np.linspace(0.1, 10.1, num=801)
+	thin = np.linspace(0.1, 20.1, num=801)
 	# Vertebrate range
 	#thick = np.linspace(1.25, 2.0, num=176*2)
 	#thin = np.linspace(1.5, 3.0, num=151*2)
@@ -397,7 +397,7 @@ def responseSurfaces():
 			muscle = Homogeneous( lthick=thick[m], lthin=thin[a], slope=slopeVertebrate )
 			
 			# Add it to the plot of aggregated sliding filament models
-			if random.random() < 0.00025:
+			if random.random() < 0.000005:
 				plt.plot(muscle.L, muscle.F, 'd-', markerfacecolor='w')
 				plt.pause(0.01)
 			
@@ -421,41 +421,47 @@ def responseSurfaces():
 	contourF = plt.contourf(X, Y, force)
 	plt.colorbar(contourF)
 	#slope, intercept, rmse = trendLine( thick, thin, force, fig )
-	slope, intercept, r_value, p_value, std_err = stats.linregress(thick, thick+Homogeneous.lz)
-	rmse = (np.sum(np.mean(np.square(thick+Homogeneous.lz - slope*thick+intercept))))**0.5
-	rsq   = r_value**2
-	plt.plot( thick, thick+Homogeneous.lz, '.c', markersize=1, label="peak performance" )
-	plt.plot( thick, slope*thick+intercept, 'c', label="thin=thick*{0:5.3f}+{1:5.3f}, R**2={2:5.3f}".format(slope, intercept, rsq))
+	#slope, intercept, r_value, p_value, std_err = stats.linregress(thick, thick+Homogeneous.lz)
+	slope = 1
+	intercept = 0
+	#rmse = (np.sum(np.mean(np.square(thick+Homogeneous.lz - slope*thick+intercept))))**0.5
+	#rsq   = r_value**2
+	#plt.plot( thick, thick+Homogeneous.lz, '.c', markersize=1, label="peak performance" )
+	#plt.plot( thick, slope*thick+intercept, 'c', label="thin=thick*{0:5.3f}+{1:5.3f}, R**2={2:5.3f}".format(slope, intercept, rsq))
 	rsq, rmse = superimposeAnimalData( thick, thin, slope, intercept, fig )
 	plt.xlim((np.min(thick), np.max(thick)))
 	plt.ylim((np.min(thin), np.max(thin)))
-	plt.legend()
+	#plt.legend()
 	
-	# Specific work response surface
+	# Max work response surface
 	fig = plt.figure()
 	plt.xlabel("Thick filament (um)")
 	plt.ylabel("Thin filament (um)")	
 	plt.title("Anchored model's predicted\ntheoretical max work (J)")
 	contourW = plt.contourf(X, Y, work)
 	plt.colorbar(contourW)
-	slope, intercept, rmse = trendLine( thick, thin, work, fig )
+	#slope, intercept, rmse = trendLine( thick, thin, work, fig )
+	slope = 1
+	intercept = 0
 	rsq, rmse = superimposeAnimalData( thick, thin, slope, intercept, fig )
 	plt.xlim((np.min(thick), np.max(thick)))
 	plt.ylim((np.min(thin), np.max(thin)))
-	plt.legend()
+	#plt.legend()
 	
-	# Specific work response surface
+	# Energy density response surface
 	fig = plt.figure()
 	plt.xlabel("Thick filament (um)")
 	plt.ylabel("Thin filament (um)")	
 	plt.title("Anchored model's predicted\nenergy density (J/cm**3)")
 	contourE = plt.contourf(X, Y, ed)
 	plt.colorbar(contourE)
-	slope, intercept, rmse = trendLine( thick, thin, ed, fig )
+	#slope, intercept, rmse = trendLine( thick, thin, ed, fig )
+	slope = 1
+	intercept = 0
 	rsq, rmse = superimposeAnimalData( thick, thin, slope, intercept, fig )
 	plt.xlim((np.min(thick), np.max(thick)))
 	plt.ylim((np.min(thin), np.max(thin)))
-	plt.legend()
+	#plt.legend()
 	
 	# Number of half sarcomeres in series (NHS) response surface
 	# provides a heuristic for maximal velocity
@@ -465,25 +471,27 @@ def responseSurfaces():
 	plt.title("Anchored model's predicted\nnumber of half sarcomeres in series")
 	contourN = plt.contourf(X, Y, nhs)
 	plt.colorbar(contourN)
-	slope, intercept, rmse = trendLine( thick, thin, nhs, fig )
+	#slope, intercept, rmse = trendLine( thick, thin, nhs, fig )
+	slope = 1
+	intercept = 0
 	rsq, rmse = superimposeAnimalData( thick, thin, slope, intercept, fig )
 	plt.xlim((np.min(thick), np.max(thick)))
 	plt.ylim((np.min(thin), np.max(thin)))
-	plt.legend()
+	#plt.legend()
 	
 	# Plot composite of normalized surfaces
 	fig = plt.figure()
 	plt.xlabel("Thick filament (um)")
 	plt.ylabel("Thin filament (um)")	
 	plt.title("Anchored model's normalized\nperformance metrics superimposed")
-	composite = (force/force.max() + 2*nhs/nhs.max() + ed/ed.max())/4
+	composite = (force/np.max(force) + 3*nhs/np.max(nhs) + ed/np.max(ed))/4
 	contourComp = plt.contourf(X, Y, composite )
 	plt.colorbar( contourComp )
-	poly2, rmse = trendLine( thick, thin, composite, fig, True )
-	rsq, rmse = superimposeAnimalData( thick, thin, slope, intercept, fig, True, poly2 )
+	#poly2, rmse = trendLine( thick, thin, composite, fig, True )
+	rsq, rmse = superimposeAnimalData( thick, thin, slope, intercept, fig)
 	plt.xlim((np.min(thick), np.max(thick)))
 	plt.ylim((np.min(thin), np.max(thin)))
-	plt.legend()
+	#plt.legend()
 	
 	
 	plt.show()
